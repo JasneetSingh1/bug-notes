@@ -21,6 +21,14 @@ export default function TicketForm(){
     const handleSubmit = (e) =>{
 
         e.preventDefault();  //page will now not get reloaded cool thing I learned for it
+
+        const ticketData = {
+            id: new Date().toISOString(), //ok for now, otherwise need better id for production
+            title,
+            description,
+            priority
+        };
+
         clearForm();
     }
 
