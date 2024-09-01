@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
-export default function TicketForm({dispatch}){
+export default function TicketForm({dispatch, editingTicket}){
 
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -11,6 +11,19 @@ export default function TicketForm({dispatch}){
         2: 'Medium',
         3: 'High'
     }
+
+    useEffect(() => {
+
+        if(editingTicket){
+
+            setTitle(editingTicket.title);
+            setDescription(editingTicket.description);
+            setPriority(editingTicket.priority);
+        }else{
+            clearForm();
+        }
+        
+    },[editingTicket])
 
     const clearForm = () => {
         setTitle('');
@@ -23,14 +36,14 @@ export default function TicketForm({dispatch}){
         e.preventDefault();  //page will now not get reloaded cool thing I learned for it
 
         const ticketData = {
-            id: new Date().toISOString(), //ok for now, otherwise need better id for production
+            id: editingTicket ? editingTicket.id : new Date().toISOString(), //ok for now, otherwise need better id for production
             title,
             description,
             priority
         };
 
         dispatch({
-            type: "ADD_TICKET",
+            type: editingTicket ? "UPDATE_TICKET" : "ADD_TICKET",
             payload: ticketData
         });
 
