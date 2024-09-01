@@ -7,11 +7,11 @@ export default function TicketList({tickets, dispatch}){
         <div className="ticket-list">
             {
                 tickets.map(ticket => (
-                    <ticketItem 
+                    <TicketItem 
                         key={ticket.id} 
                         dispatch={dispatch} 
                         ticket={ticket}>
-                    </ticketItem>
+                    </TicketItem>
                 ))
             }
         </div>
