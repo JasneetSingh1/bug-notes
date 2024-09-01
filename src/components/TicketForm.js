@@ -22,7 +22,7 @@ export default function TicketForm({dispatch, editingTicket}){
         }else{
             clearForm();
         }
-        
+
     },[editingTicket])
 
     const clearForm = () => {
@@ -47,6 +47,11 @@ export default function TicketForm({dispatch, editingTicket}){
             payload: ticketData
         });
 
+        clearForm();
+    };
+
+    const handleCancel = () => {
+        dispatch({type: "CLEAR_EDITING_TICKET"});
         clearForm();
     }
 
@@ -79,6 +84,8 @@ export default function TicketForm({dispatch, editingTicket}){
             </fieldset>
 
             <button type='submit' className='button'>Submit</button>
+
+            {editingTicket && <button className='button' onClick={handleCancel}>Cancel Edit</button>}
         </form>
     )
 }
